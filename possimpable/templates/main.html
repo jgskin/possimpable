@@ -12,7 +12,7 @@
 </script>
 <script type="text/javascript">
   function initialize() {
-    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var latlng = new google.maps.LatLng(-22.880018,-43.410637);
     var myOptions = {
       zoom: 8,
       center: latlng,
@@ -20,6 +20,17 @@
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"),
         myOptions);
+
+    {% for twit in twits %}
+    geocode = new google.maps.LatLng({{ twit.lat }}, {{ twit.long }});
+    
+    var marker = new google.maps.Marker({
+      position: geocode,
+      title: "{{ twit.content }}",
+    });
+
+    marker.setMap(map);
+    {% endfor %}
   }
 
 </script>
